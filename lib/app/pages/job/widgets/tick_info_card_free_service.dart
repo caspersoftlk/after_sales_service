@@ -24,7 +24,7 @@ class TicketCardInfo extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              serviceOrder.jobType=="AGST"?Icon(Icons.whatshot,size: 70,color: lightGrey,):Icon(Icons.phone_in_talk_sharp,size: 70,color: lightGrey,),
+              serviceOrder.jobType=="AGST"?Icon(Icons.wifi_protected_setup,size: 70,color: lightGrey,):Icon(Icons.phone_in_talk_sharp,size: 70,color: lightGrey,),
             ],
           ),
           Row(

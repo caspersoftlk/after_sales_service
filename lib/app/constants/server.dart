@@ -17,6 +17,8 @@ const GET_UPDATE_SERVICE_JOB_URL = "/SumathiServiceModule/updateServiceJob";
 const GET_INSERT_SERVICE_TICKS_URL = "/SumathiServiceModule/insertServiceTicket";
 const GET_ACCEPT_SERVICE_JOB_URL = "/SumathiServiceModule/acceptServiceTicket";
 const GET_PRODUCT_WITH_STOCK_URL = "/SumathiServiceModule/getProducts/";
+const GET_REPAIR_NOTE_ITEMS_URL = "/SumathiServiceModule/getRepairItem//";
+const GET_SAVE_PRODUCT_REPAIR_NOTE_URL = "/SumathiServiceModule/insertRepairItem";
 
 //POS
 const GET_POS_INVOICES_URL = "/SumathiServiceModule/pos/getTransList/";

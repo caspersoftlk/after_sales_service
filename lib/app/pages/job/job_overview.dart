@@ -655,9 +655,9 @@ class _FreeServiceOverViewState extends State<JobOverview> {
                       motion: const ScrollMotion(),
                       children: [
                         SlidableAction(
-                          icon: Icons.remove_circle,
+                          icon: Icons.volunteer_activism,
                           label: "Tech Inspect",
-                          backgroundColor: red,
+                          backgroundColor: blue,
                           onPressed: (context) async {
                             showDialog(
                                 context: context,
@@ -670,9 +670,9 @@ class _FreeServiceOverViewState extends State<JobOverview> {
                           },
                         ),
                         SlidableAction(
-                          icon: Icons.remove_circle,
+                          icon: Icons.handyman,
                           label: "Repair Note",
-                          backgroundColor: red,
+                          backgroundColor: darkGreen,
                           onPressed: (context) async {
                             // showDialog(
                             //     context: context,
