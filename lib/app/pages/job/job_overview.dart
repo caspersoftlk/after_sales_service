@@ -3,11 +3,14 @@ import 'dart:convert';
 
 import 'package:after_sales_service_module/app/constants/controllers.dart';
 import 'package:after_sales_service_module/app/constants/server.dart';
+import 'package:after_sales_service_module/app/constants/string_ref.dart';
 import 'package:after_sales_service_module/app/constants/style.dart';
 import 'package:after_sales_service_module/app/helpers/local_navigator.dart';
 import 'package:after_sales_service_module/app/helpers/reponsiveness.dart';
 import 'package:after_sales_service_module/app/models/service_order.dart';
 import 'package:after_sales_service_module/app/models/transaction_doc.dart';
+import 'package:after_sales_service_module/app/pages/job/repair/widget/JobCard.dart';
+import 'package:after_sales_service_module/app/pages/job/widgets/read_more.dart';
 import 'package:after_sales_service_module/app/pages/job/widgets/tick_info_card_free_service.dart';
 import 'package:after_sales_service_module/app/providers/auth.dart';
 import 'package:after_sales_service_module/app/routing/routes.dart';
@@ -15,10 +18,12 @@ import 'package:after_sales_service_module/app/widgets/custom_container.dart';
 import 'package:after_sales_service_module/app/widgets/custom_text.dart';
 import 'package:after_sales_service_module/app/widgets/custome_icon_button.dart';
 import 'package:after_sales_service_module/app/widgets/pageTitileCard.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 ServiceOrder serviceElement = ServiceOrder(cat: "cat");
@@ -229,248 +234,6 @@ class _FreeServiceOverViewState extends State<JobOverview> {
                 );
               }
 
-              Widget setupAlertContainerRepNote(AuthProvider auth) {
-                final TextEditingController searchController =
-                    TextEditingController();
-                Map<String, dynamic>? selectedItem;
-                var _productCode = TextEditingController().obs;
-                var _productName = TextEditingController().obs;
-                var _productAvlQty = TextEditingController().obs;
-                var _productSelPrice = TextEditingController().obs;
-                var _productSelRqQty = TextEditingController().obs;
-                var _productRemark = TextEditingController().obs;
-                return SizedBox(
-                    width: ResponsiveWidget.isSmallScreen(context) ? 300 : 500,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        DropdownSearch<Map<String, dynamic>>(
-                          isFilteredOnline: true,
-                          showClearButton: true,
-                          showSearchBox: true,
-                          autoFocusSearchBox: true,
-                          searchBoxController: searchController,
-                          label: "Search Item",
-                          dropdownBuilder:
-                              (context, selectedItem, itemAsString) {
-                            if (selectedItem == null) {
-                              return Row(
-                                children: const [
-                                  Icon(Icons.search, size: 18, color: dark),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Text(
-                                    "Find Spare Parts",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: dark),
-                                  ),
-                                ],
-                              );
-                            }
-                            return Row(
-                              children: [
-                                const Icon(
-                                  Icons.view_in_ar,
-                                  size: 18,
-                                  color: dark,
-                                ),
-                                const SizedBox(
-                                  width: 4,
-                                ),
-                                Text(
-                                  (selectedItem["productCode"] ?? "").trim() +
-                                      " : " +
-                                      (selectedItem["productName"] ?? ""),
-                                  style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: dark),
-                                ),
-                              ],
-                            );
-                          },
-                          popupItemBuilder: (context, item, isSelected) {
-                            return Container(
-                              padding: const EdgeInsets.only(
-                                  top: 18, bottom: 18, left: 18, right: 8),
-                              decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(width: 2, color: blue)),
-                              ),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            const Icon(
-                                              Icons.view_in_ar,
-                                              size: 18,
-                                            ),
-                                            const SizedBox(width: 2),
-                                            Text(item["productName"] ?? "N/F",
-                                                style: const TextStyle(
-                                                    fontSize: 12)),
-                                            Text(
-                                              " (" +
-                                                  (item["productCode"] + ")" ??
-                                                      ""),
-                                              style:
-                                                  const TextStyle(fontSize: 12),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 4,
-                                        ),
-                                        Wrap(
-                                          spacing: 10,
-                                          children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                const Icon(
-                                                  Icons.all_inbox_rounded,
-                                                  size: 18,
-                                                ),
-                                                const SizedBox(width: 2),
-                                                Text(item["stock"] ?? "N/F",
-                                                    style: const TextStyle(
-                                                        fontSize: 12)),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                const Icon(
-                                                  Icons.money,
-                                                  size: 18,
-                                                ),
-                                                const SizedBox(width: 2),
-                                                Text(
-                                                    item["sellingPrice"] ??
-                                                        "N/F",
-                                                    style: const TextStyle(
-                                                        fontSize: 12)),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          onFind: (String filter) async {
-                            var res = await apiService.get(
-                                GET_PRODUCT_WITH_STOCK_URL +
-                                    (filter.isEmpty ? "@" : filter) +
-                                    "/3");
-                            List<dynamic> l = json.decode(res!);
-                            List<Map<String, dynamic>> lamap = l
-                                .map((dynamic e) => e as Map<String, dynamic>)
-                                .toList();
-                            return lamap;
-                          },
-                          onChanged: (val) {
-                            selectedItem = val;
-                            _productCode.value.text =
-                                selectedItem!["productCode"];
-                            _productName.value.text =
-                                selectedItem!["productName"];
-                            _productSelPrice.value.text =
-                            selectedItem!["sellingPrice"];
-                            _productAvlQty.value.text =
-                            selectedItem!["stock"];
-                            _productSelRqQty.value.text ="1";
-                            _productRemark.value.text ="";
-                          },
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Obx(() => TextField(
-                                    readOnly: true,
-                                    controller: _productCode.value,
-                                    decoration: InputDecoration(
-                                        labelText: "Product Code",
-                                        hintText: "Code",
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(4))),
-                                  )),
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Obx(() => TextField(
-                                    readOnly: true,
-                                    controller: _productName.value,
-                                    decoration: InputDecoration(
-                                        labelText: "Product Name",
-                                        hintText: "Description",
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(4))),
-                                  )),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Obx(() => TextField(
-                                readOnly: true,
-                                controller: _productAvlQty.value,
-                                decoration: InputDecoration(
-                                    labelText: "Stock",
-                                    hintText: "Avl. Stock",
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(4))),
-                              )),
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Obx(() => TextField(
-                                readOnly: true,
-                                controller: _productSelPrice.value,
-                                decoration: InputDecoration(
-                                    labelText: "Selling Price",
-                                    hintText: "Selling Price",
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(4))),
-                              )),
-                            ),
-                          ],
-                        )
-                      ],
-                    ));
-              }
-
               Widget setupAlertContainer(AuthProvider auth) {
                 return SizedBox(
                   width: ResponsiveWidget.isSmallScreen(context) ? 300 : 500,
@@ -646,142 +409,32 @@ class _FreeServiceOverViewState extends State<JobOverview> {
                 );
               }
 
-              widgetList.add(
-                Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Slidable(
-                    key: const ValueKey(0),
-                    startActionPane: ActionPane(
-                      motion: const ScrollMotion(),
-                      children: [
-                        SlidableAction(
-                          icon: Icons.volunteer_activism,
-                          label: "Tech Inspect",
-                          backgroundColor: blue,
-                          onPressed: (context) async {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('Technical Inspection'),
-                                    content: setupAlertContainer(auth),
-                                  );
-                                });
-                          },
-                        ),
-                        SlidableAction(
-                          icon: Icons.handyman,
-                          label: "Repair Note",
-                          backgroundColor: darkGreen,
-                          onPressed: (context) async {
-                            // showDialog(
-                            //     context: context,
-                            //     builder: (BuildContext context) {
-                            //       return AlertDialog(
-                            //         title: const Text('Repair Note'),
-                            //         content: setupAlertContainerRepNote(auth),
-                            //       );
-                            //     });
-                            serviceElement = element;
-                            navigationController.navigateTo(repairNotePageRoute);
-                          },
-                        ),
-                      ],
-                    ),
-                    endActionPane: ActionPane(
-                      motion: const ScrollMotion(),
-                      children: [
-                        SlidableAction(
-                          icon: Icons.info,
-                          label: "Read More",
-                          backgroundColor: yellow,
-                          foregroundColor: Colors.white,
-                          onPressed: (context) {
-                            Widget setupAlertDialoadContainer() {
-                              return SizedBox(
-                                width: ResponsiveWidget.isSmallScreen(context)
-                                    ? 300
-                                    : 500,
-                                child: ListView(shrinkWrap: true, children: [
-                                  PageTitleCard(
-                                      title: "JOB TYPE : ${element.jobType}",
-                                      icon: Icons.send),
-                                  PageTitleCard(
-                                      title: "INV No : ${element.invNo}",
-                                      icon: Icons.send),
-                                  PageTitleCard(
-                                      title: "STATUS : ${element.jName}",
-                                      icon: Icons.handyman),
-                                  PageTitleCard(
-                                      title:
-                                          "Customer : ${element.invCustomerName}",
-                                      icon: Icons.arrow_right),
-                                  PageTitleCard(
-                                      title:
-                                          "Customer Mobile : ${element.invCustomerMobile}",
-                                      icon: Icons.arrow_right),
-                                  PageTitleCard(
-                                      title:
-                                          "Customer Address : ${element.invCustomerAddress}",
-                                      icon: Icons.arrow_right),
-                                  PageTitleCard(
-                                      title:
-                                          "Product Name : ${element.invProductName}",
-                                      icon: Icons.arrow_right),
-                                  PageTitleCard(
-                                      title:
-                                          "Product Serial : ${element.invProductSerial}",
-                                      icon: Icons.arrow_right),
-                                  PageTitleCard(
-                                      title:
-                                          "Product Model : ${element.invProductModel}",
-                                      icon: Icons.arrow_right),
-                                  PageTitleCard(
-                                      title:
-                                          "Is WarrantyExpired : ${element.isWarrantyExpired}",
-                                      icon: Icons.arrow_right),
-                                  PageTitleCard(
-                                      title:
-                                          "Inspection : ${element.inspection}",
-                                      icon: Icons.arrow_right),
-                                  PageTitleCard(
-                                      title: "Remarks : ${element.remark}",
-                                      icon: Icons.arrow_right),
-                                  PageTitleCard(
-                                      title:
-                                          "Technician : ${element.techLastName}",
-                                      icon: Icons.arrow_right),
-                                  PageTitleCard(
-                                      title:
-                                          "Last Update : ${element.updateDate}",
-                                      icon: Icons.arrow_right),
-                                  OutlinedButton(
-                                      onPressed: () {
-                                        Get.back();
-                                      },
-                                      child: const Text("Close"))
-                                ]),
-                              );
-                            }
+              widgetList.add(JobCard(techInspect: (context) async {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Technical Inspection'),
+                        content: setupAlertContainer(auth),
+                      );
+                    });
+              }, readMore: (context) {
+                TextEditingController serviceDateTime =
+                TextEditingController();
 
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('  Details'),
-                                    content: setupAlertDialoadContainer(),
-                                  );
-                                });
-                          },
-                        )
-                      ],
-                    ),
-                    child: TicketCardInfo(
-                      serviceOrder: element,
-                    ),
-                  ),
-                ),
-              );
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('  Details'),
+                        content: ReadMoreJob(element: element, state: ()=> setState(() {
+                        })),
+                      );
+                    });
+              }, repairNote: (context) async {
+                serviceElement = element;
+                navigationController.navigateTo(repairNotePageRoute);
+              }, element: element));
             }
 
             return ListView(

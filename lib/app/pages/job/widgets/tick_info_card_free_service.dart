@@ -24,6 +24,9 @@ class TicketCardInfo extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Text(
+                serviceOrder.cat!, style: TextStyle(fontSize: 76, color: Colors.blue.withOpacity(0.15)),
+              ),
               serviceOrder.jobType=="AGST"?Icon(Icons.wifi_protected_setup,size: 70,color: lightGrey,):Icon(Icons.phone_in_talk_sharp,size: 70,color: lightGrey,),
             ],
           ),
@@ -56,8 +59,7 @@ class TicketCardInfo extends StatelessWidget {
                               width: 2,
                             ),
                             Text(
-                                dateformat.format(DateFormat("M/d/yyyy")
-                                    .parse(serviceOrder.freeServiceDate!)),
+                              formatStringDateTime(serviceOrder.freeServiceDate!),
                               style: const TextStyle(fontSize: 14,color: dark),)
                           ],
                         ),
