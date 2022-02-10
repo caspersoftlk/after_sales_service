@@ -9,7 +9,7 @@ import 'package:after_sales_service_module/app/helpers/local_navigator.dart';
 import 'package:after_sales_service_module/app/helpers/reponsiveness.dart';
 import 'package:after_sales_service_module/app/models/service_order.dart';
 import 'package:after_sales_service_module/app/models/transaction_doc.dart';
-import 'package:after_sales_service_module/app/pages/job/repair/widget/JobCard.dart';
+import 'package:after_sales_service_module/app/pages/job/widgets/JobCard.dart';
 import 'package:after_sales_service_module/app/pages/job/widgets/read_more.dart';
 import 'package:after_sales_service_module/app/pages/job/widgets/tick_info_card_free_service.dart';
 import 'package:after_sales_service_module/app/providers/auth.dart';

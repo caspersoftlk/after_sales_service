@@ -406,6 +406,21 @@ class _AcceptTicketsState extends State<AcceptTickets> {
                     ),
                     child: TicketCardInfo(
                       serviceOrder: element,
+                      openMenu: (){
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('  Details'),
+                                content: SizedBox(width: 100, height: 100,
+                                    child: Column(
+                                      children: [
+                                        ElevatedButton.icon(onPressed: (){}, icon: Icon(Icons.call), label: Text("Test BUutton"))
+                                      ],
+                                    )),
+                              );
+                            });
+                      },
                     ),
                   ),
                 ),
